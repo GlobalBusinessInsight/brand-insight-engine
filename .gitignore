@@ -155,6 +155,7 @@ cython_debug/
 .vscode/
 
 # Project specific
+.env
 # data/*.json
 # dashboard.html
 # index.html

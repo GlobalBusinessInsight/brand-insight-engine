@@ -1,352 +1,325 @@
 
     <!DOCTYPE html>
-    <html lang="zh-CN">
+    <html lang="zh-CN" class="dark">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Social Intelligence MVP Dashboard</title>
+        <title>Social Intelligence MVP - Brand Insight</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            tailwind.config = {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        colors: {
+                            cyber: {
+                                black: '#0a0a0c',
+                                card: '#16161a',
+                                primary: '#3b82f6',
+                                accent: '#00f2ff',
+                                danger: '#ff0055',
+                                success: '#00ffaa'
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
         <style>
-            .sentiment-positive { border-left: 6px solid #10b981; }
-            .sentiment-negative { border-left: 6px solid #ef4444; }
-            .sentiment-neutral { border-left: 6px solid #6b7280; }
+            body { background-color: #0a0a0c; color: #e2e8f0; }
+            .cyber-card { 
+                background-color: #16161a; 
+                border: 1px solid #2d2d35;
+                transition: transform 0.2s, border-color 0.2s;
+            }
+            .cyber-card:hover { 
+                transform: translateY(-2px);
+                border-color: #3b82f6;
+            }
+            .sentiment-positive { border-left: 4px solid #00ffaa; }
+            .sentiment-negative { border-left: 4px solid #ff0055; }
+            .sentiment-neutral { border-left: 4px solid #3b82f6; }
+            .chart-container { position: relative; height: 250px; width: 100%; }
         </style>
     </head>
-    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-        <div class="container mx-auto p-6">
-            <header class="mb-10 text-center">
-                <h1 class="text-4xl font-extrabold text-gray-800">🚀 Social Intelligence MVP</h1>
-                <p class="text-gray-600 mt-2">实时品牌舆情监控仪表盘 | 最后更新: 2026-03-09 05:24:37</p>
+    <body class="font-sans leading-normal tracking-normal p-6">
+        <div class="container mx-auto">
+            <header class="mb-10 flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 uppercase tracking-wider">
+                        Social Intelligence MVP
+                    </h1>
+                    <p class="text-gray-500 mt-1">AI-Powered Brand Sentiment Analysis | Last Update: 2026-03-09 10:40:28</p>
+                </div>
+                <div class="mt-4 md:mt-0 px-4 py-2 rounded-lg bg-cyber-card border border-gray-800">
+                    <span class="text-xs text-gray-500 block uppercase">Analyzing Keywords</span>
+                    <span class="text-sm font-bold text-blue-400">君乐宝, 飞鹤, 雪花啤酒, 临工重机</span>
+                </div>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Stats Section -->
+                <div class="cyber-card p-6 rounded-xl flex flex-col justify-center">
+                    <h3 class="text-gray-400 text-sm uppercase font-bold mb-4">Sentiment Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feed Section -->
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-[600px] pr-2">
     
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            君乐宝
-                        </span>
-                        <span class="text-xs text-gray-400">Fri, 06 Mar 2026 10:34:00 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                君乐宝
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTE1lcnV4dlJCdGREeW9qTVpiSlBwR2FQcC0tZ05lTTVyVFVfNGlPRGtrVHR6MWY2M0QxSUY1Skd4Z3FaNnoyMWtidHJyUnJkQl9qanVkWE1tTktmdGMxMWR4alF6SzNQQ1FkbGJITFc2dw?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                乳制品市场消费不振，君乐宝鲜奶何以逆势增长？ - 新浪财经
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 君乐宝 的新闻：乳制品市场消费不振，君乐宝鲜奶何以逆势增长？ - 新浪财经。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiXEFVX3lxTE5Oc2VOVktfaFZvMUphSW5ERm5hc1ROcWNfTjFTQzAzT2xwM1ZnZkZDVnpXbDVwODNYTXpvWEszbEJUb2Z2NGRKMVpNQ0pvSzdWeV8zaS1qajU0M2ZF?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            全国人大代表、君乐宝乳业集团董事长兼总裁魏立华：推动“学生奶计划”普惠供给，夯实“健康中国”根基 - 光明网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            君乐宝
-                        </span>
-                        <span class="text-xs text-gray-400">Sat, 07 Mar 2026 04:00:00 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-neutral">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                君乐宝
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ReGg2RkZaVG85U2JGdG1nMVRybDltMW9TTGh3S2FuMUdna0FWOVIzUmU1aWxkMzFkZHEteV9TbnVaRE9ydjdCWG9qcFZvX3QtMUVmZ3ZKZXFaZTBONmc?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                科学配方，多维营养：君乐宝优萃宝爱奶粉回应家长喂养需求 - 中华网
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 君乐宝 的新闻：科学配方，多维营养：君乐宝优萃宝爱奶粉回应家长喂养需求 - 中华网。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Neutral</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFB3MndoUmdaTE5aRTB3aHpJcnI3TFdZZVlQcU1kRkpCNVF0N3JRYUFhTFdhQnVqNDVyVUo0SngtV2dyU2xMSi15X0c4cFdxbkstMm9RU0RkZTRQVEVEckNqZXRzZU1ueWJjUkN5UGczZw?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            君乐宝乳业（泉州）有限公司成立 - zqrb.cn
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            君乐宝
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 06:27:42 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                君乐宝
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFB3MndoUmdaTE5aRTB3aHpJcnI3TFdZZVlQcU1kRkpCNVF0N3JRYUFhTFdhQnVqNDVyVUo0SngtV2dyU2xMSi15X0c4cFdxbkstMm9RU0RkZTRQVEVEckNqZXRzZU1ueWJjUkN5UGczZw?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                君乐宝乳业（泉州）有限公司成立 - zqrb.cn
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 君乐宝 的新闻：君乐宝乳业（泉州）有限公司成立 - zqrb.cn。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMihwFBVV95cUxQWTk0ajVOdk5UUjhCc21sT0hYWkpnYXl1OFJnNkxSYldNMURFVWJFT0JEemVGNl8tWWE4UXNaa08xd3BsRGh0aFVQT3FzTVpySjA0ZU5MbWVWT0d5Mkw3ZWpIcGE1RmxQNGZHMWFPNms3MFZBVHpXaE1XdlpLQnRHbmhmSGwzNkU?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            覆盖率仅17%！君乐宝魏立华代表两会呼吁：学生奶迈向全面普惠 - 搜狐网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            君乐宝
-                        </span>
-                        <span class="text-xs text-gray-400">Fri, 06 Mar 2026 13:52:04 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                君乐宝
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE9nVEtTcEtkNkxpSUkwa29NOUZBZWlnN0RjalJqSFhTY24zdmpRSndIcDFrUWJvenV3ZXJIdFh4dHhEem9tcGlOZDVPV1Y1dk9lMlp3M2pveFNDek1LOXc?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                君乐宝在泉州成立新公司 注册资本1000万 - DoNews
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 君乐宝 的新闻：君乐宝在泉州成立新公司 注册资本1000万 - DoNews。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE1PQ0IxTlp2Y0NEaXk2eUFGY3FCYUt3eUdyS2U5ZFN4dGR5Qm9KbHF0ZkM2UndBRDhTbTF4a1luSll6UkwwV0pWZzhRb2dmcXNYU1g5STY3bGhjeFA0QU9xMzJUS0VCQlpNTEdCbFg0d0RGU1F6OFE?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            君乐宝董事长魏立华：建议通过“分步走”推动学生奶计划走向普惠 - 新浪财经
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            君乐宝
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 01:34:00 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                君乐宝
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE43bHVQNDZ3Ul9HOGQta3dmUU1POXd6ZHdvYXlFN2UtVGxaVnc4STNqSU9SbXprdTZVa2lqb2JpMXZUWm00WGxxU21MSVBvTC0tX1MybC1zSzItY1Z4WHQ4WXQweXBqeDRMRExUUQ?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                两会议食厅｜魏立华：推动学生奶普惠供给 优先覆盖特困地区和农村小学 - 中国经济网
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 君乐宝 的新闻：两会议食厅｜魏立华：推动学生奶普惠供给 优先覆盖特困地区和农村小学 - 中国经济网。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE43bHVQNDZ3Ul9HOGQta3dmUU1POXd6ZHdvYXlFN2UtVGxaVnc4STNqSU9SbXprdTZVa2lqb2JpMXZUWm00WGxxU21MSVBvTC0tX1MybC1zSzItY1Z4WHQ4WXQweXBqeDRMRExUUQ?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            两会议食厅｜魏立华：推动学生奶普惠供给 优先覆盖特困地区和农村小学 - 中国经济网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            飞鹤
-                        </span>
-                        <span class="text-xs text-gray-400">Sun, 08 Mar 2026 13:23:35 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-neutral">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                飞鹤
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE53djExZnpHTTVjWTNwMlFrUi1BMUdIS19ndU9FRmJaWjl0bzkzaWxIOGp1S0ZKYXB5RnpSc0hScGk4UmF3aHpLeW5ZTDdNSTJfRDEzZEJHTHNHa2M5dUtwTjFxTVRtMmd1UjhteExjTVAxWUR3M1FScGZ0a3I?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                全国人大代表冷友斌：提升优质蛋白认知和供给 大力发展乳品深加工 - 新华网
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 飞鹤 的新闻：全国人大代表冷友斌：提升优质蛋白认知和供给 大力发展乳品深加工 - 新华网。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Neutral</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBNQ1ZBR3BsbU9JNm1oeEh4c2c2THM2bTl4cGV1Qk1EbUpXZVBuWk9tejE1dElOMEdsQ2FFVDM1M1JMZGFlRTZ1S1ZZTktyNFNHT2VKUjQzTnNqeXNtVnpRa1AxMklybGo1TkFVbkpnTWZBdGstaVV2QktFQ3diUUk?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            飞鹤坚守主业，赋能行业创新升级 - 人民日报
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            飞鹤
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 07:20:21 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                飞鹤
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBNQ1ZBR3BsbU9JNm1oeEh4c2c2THM2bTl4cGV1Qk1EbUpXZVBuWk9tejE1dElOMEdsQ2FFVDM1M1JMZGFlRTZ1S1ZZTktyNFNHT2VKUjQzTnNqeXNtVnpRa1AxMklybGo1TkFVbkpnTWZBdGstaVV2QktFQ3diUUk?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                飞鹤坚守主业，赋能行业创新升级 - 人民日报
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 飞鹤 的新闻：飞鹤坚守主业，赋能行业创新升级 - 人民日报。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE53djExZnpHTTVjWTNwMlFrUi1BMUdIS19ndU9FRmJaWjl0bzkzaWxIOGp1S0ZKYXB5RnpSc0hScGk4UmF3aHpLeW5ZTDdNSTJfRDEzZEJHTHNHa2M5dUtwTjFxTVRtMmd1UjhteExjTVAxWUR3M1FScGZ0a3I?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            全国人大代表冷友斌：提升优质蛋白认知和供给 大力发展乳品深加工 - 新华网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            飞鹤
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 02:54:05 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                飞鹤
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTFBrcmNLanJmUjM0SjBEZmZISXdwZm9TODRaZmxidGlzX043X2hyTFBrSU1kaDVoM0VjOHR4SFAzZUFRdjYxTkduSHcxeFFvdWpQOTRF?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                中国飞鹤的“蛋白答卷”： 冷友斌两会建议背后的乳业“隐形芯片”战事 - 第一财经
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 飞鹤 的新闻：中国飞鹤的“蛋白答卷”： 冷友斌两会建议背后的乳业“隐形芯片”战事 - 第一财经。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTFBrcmNLanJmUjM0SjBEZmZISXdwZm9TODRaZmxidGlzX043X2hyTFBrSU1kaDVoM0VjOHR4SFAzZUFRdjYxTkduSHcxeFFvdWpQOTRF?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            中国飞鹤的“蛋白答卷”： 冷友斌两会建议背后的乳业“隐形芯片”战事 - 第一财经
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            飞鹤
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 07:59:11 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-neutral">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                飞鹤
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMiSEFVX3lxTFBDcDZfRXBTdFZGME9kVS12a0lSemVWb0l2d0I5TFVGRV9KNjRyZ05CeWU3VGZ1V0V6U0dYQl9nY1hKS1N5cVJEUQ?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                聚焦两会营养议题：飞鹤冷友斌建言，把国民蛋白安全握在自己手中_凤凰网 - 手机凤凰网
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 飞鹤 的新闻：聚焦两会营养议题：飞鹤冷友斌建言，把国民蛋白安全握在自己手中_凤凰网 - 手机凤凰网。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Neutral</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiSEFVX3lxTFBDcDZfRXBTdFZGME9kVS12a0lSemVWb0l2d0I5TFVGRV9KNjRyZ05CeWU3VGZ1V0V6U0dYQl9nY1hKS1N5cVJEUQ?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            聚焦两会营养议题：飞鹤冷友斌建言，把国民蛋白安全握在自己手中 - 凤凰网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            飞鹤
-                        </span>
-                        <span class="text-xs text-gray-400">Thu, 05 Mar 2026 09:30:00 GMT</span>
+                    <div class="cyber-card p-5 rounded-lg sentiment-positive">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-cyber-primary border border-cyber-primary rounded uppercase">
+                                飞鹤
+                            </span>
+                            <span class="text-[10px] text-gray-600 font-mono italic">Google News RSS</span>
+                        </div>
+                        <h2 class="text-md font-bold text-gray-200 leading-snug mb-2">
+                            <a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ST0U5QWNNYnEzY19tc3NiNVpsSFBFdVZaRktnX0VWVFB1RXJIS0NaUGVGM29aTEg4T3VDc2VOOTFCWk91aXE2VTNJbGZ2aUZfSllGOQ?oc=5" target="_blank" class="hover:text-cyber-accent transition-colors">
+                                全国两会｜飞鹤冷友斌：自主创新提升优质蛋白供给，守护国人全龄营养健康 - eeo.com.cn
+                            </a>
+                        </h2>
+                        <p class="text-xs text-gray-400 line-clamp-3 mb-3">
+                            关于 飞鹤 的新闻：全国两会｜飞鹤冷友斌：自主创新提升优质蛋白供给，守护国人全龄营养健康 - eeo.com.cn。来源：Google News RSS。
+                        </p>
+                        <div class="flex justify-between items-end border-t border-gray-800 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-600 uppercase">Analysis: <span class="text-gray-400">Positive</span></span>
+                            
+                        </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ST0U5QWNNYnEzY19tc3NiNVpsSFBFdVZaRktnX0VWVFB1RXJIS0NaUGVGM29aTEg4T3VDc2VOOTFCWk91aXE2VTNJbGZ2aUZfSllGOQ?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            全国两会｜飞鹤冷友斌：自主创新提升优质蛋白供给，守护国人全龄营养健康 - eeo.com.cn
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
         
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            雪花啤酒
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 02 Mar 2026 03:47:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTFB5VHJvckc2NjF2WVZITlN6ZjRibmtBTVM3RWpqbTEzVkQzR2w1OURnU0pEZjgzMjJFV2pianNMX3gwV0E2dnNEN2N6MklKc3NvQ042MnU4LXp6SGs?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            雪花啤酒2026超级杯：北京国安力克上海海港夺队史第3座超级杯 - 中国足球协会
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
                 </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            雪花啤酒
-                        </span>
-                        <span class="text-xs text-gray-400">Sun, 01 Mar 2026 16:55:10 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTFBqNjRmN18tcFprMlhTck12ZHN2VmZzc3BOTFg0M2lPMWtqVHN2dkNCS0RJMEZoak8yTVc1ejk4V0lETFVRNE5TZktiN09faTZvcEdzeGNDaWdYWTczbVZ4RVhIYWxRcExWSXc3amd5bDl5U2NSN3RN?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            超级杯夺冠，张稀哲赛后调侃：啤酒呢？雪花啤酒呢？ - Sina Sports
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            雪花啤酒
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 15 Dec 2025 08:00:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE1heDdkbV9fb1oyaTVaQ2hSSjlkZFBNSGNEZ0E0N1NFZjlJWTdvOVJsdmU3dkJvOUJyNGFkXzNVYldqT3ZSUlI1bG9xby1fdVpmcUQwZGhCZTh3UQ?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            这个冬天，“雪花”落在深圳 - nfnews.com
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            雪花啤酒
-                        </span>
-                        <span class="text-xs text-gray-400">Thu, 03 Apr 2025 07:00:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTFBDMVpSRXE2My04LW9ZNjlpeWNRZzNEQmNYaHhJb01PQXNVWEUzS252eW9RLTY4U25HUW5HZjlFUmRoY252bjlVQmJ2cFp1Sm1hcjhFM21uTnlMMy1FTHU4QmJxd3hfWmVzYXhrdmNtbGgtOFF6QjRnU0M5bGU?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            范世凯：雪花啤酒携手“春糖”展城融合 深入探索全域场景新消费 - 新华网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            雪花啤酒
-                        </span>
-                        <span class="text-xs text-gray-400">Wed, 17 Dec 2025 08:00:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE5VV1F1cGRHeldCTHROSWsyalhGWXd6bk5yNU9QcGhONmg0ZTRxV2t6SkFIM2NGRmVKY0ZtbEJObnZxV2tZdmMtQWlCS21nSWd1QjBMZURyalBZVkM3SzdCVTRwVXJwUFNnOEFabEtzeUt5b3NXNDR0dg?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            东北再无雪花啤酒 - 新浪财经
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            临工重机
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 02:26:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE9wcUtTM0s1clhyNzhGNmg1eE1oZHN5dTRuU2w1VkVWSURHQnVCejU0NlR4YVM5TGxXdFdYT1ZoMEJtcjlKWG42bjFQazRnNlk0M0I2TVU4SQ?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            临工重机在CONEXPO-CON/AGG 2026 上展示新产品与服务举措 - 美通社
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            临工重机
-                        </span>
-                        <span class="text-xs text-gray-400">Mon, 09 Mar 2026 06:38:46 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTlNZVFpUbkgzZUtKaVEwTXIyVlo1Y0w2VkI5T0Jwbi16LVNTRjNRT0V2Z1kwSFNkWDBzOUY3dXlEZnVHa0loZ3pLZW5uY3hVeHZmUFB6ZEk5SGlJTDB2YWRCU2RSMWlPNlprcUtSVl9JbG1wR3F1NEdDcEdHbWN3cHUyVllpY2ZldkJV?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            临工重机在2026年CONEXPO展会上发布三款新设备及LGMG ProCare服务品牌 - 搜狐网
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            临工重机
-                        </span>
-                        <span class="text-xs text-gray-400">Fri, 07 Nov 2025 08:00:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE1XX1BPVFBYOFNPY3JhNXdLbk02UmZCNG05ZHdjNVFpdlVsOTNCYlJFWTRZS3hQaVNUa2ZpRzRsR2pPTTVNSTFLZEJHeEY3UnJ2TzhWRTdZQlcwXzB1R0t6VmN5S3FacFhZbmNzTTV3?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            临工重机冲A未果转战港股IPO，上半年增利不增收 - 新浪财经
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            临工重机
-                        </span>
-                        <span class="text-xs text-gray-400">Fri, 27 Feb 2026 10:13:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTFAyN2RlMW1xYmNwYVlnNkNkc0NOZFlNYU5nV3hmbGZ6QXduVmZjZWNaWl9FcXhiWlBBUWtNRk52aThkWVdGazRvS3ZfOTg1X2J5ZGUxb0FWVHFHQ09TcG02NUJjY1RrY09XWm0tRmZ3SU5PcXhmWHBj?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            赋能矿山绿色转型！临工重机宽体矿卡关键技术成果顺利鉴定 - 新浪财经
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
-                <div class="bg-white rounded-lg shadow-md p-6 sentiment-neutral">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-                            临工重机
-                        </span>
-                        <span class="text-xs text-gray-400">Sat, 08 Nov 2025 08:00:00 GMT</span>
-                    </div>
-                    <h2 class="text-xl font-bold mt-3 text-gray-800 leading-tight">
-                        <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTFBZVGlZTGdTNEhpQkVJdGV6Q3RIT3JDSW1Lcl93amRQV2I3ODNDd2Y4VDFUNFdqSjUxdnEwbWc2aFgxM3ZVSGpnb2tIXzBySGU5a0NCc1pB?oc=5" target="_blank" class="hover:text-blue-500 transition-colors">
-                            IPO雷达｜冲A未果临工重机转战港股IPO，营收波动大，上半年高空作业设备业务下滑57% - QQ News
-                        </a>
-                        
-                    </h2>
-                    <p class="text-gray-500 text-sm mt-4 italic">来源: Google News RSS</p>
-                </div>
-        
             </div>
             
-            <footer class="mt-12 text-center text-gray-400 text-sm">
-                Generated by Eric Agent | OpenClaw Workspace
+            <footer class="mt-12 text-center border-t border-gray-900 pt-8 pb-4">
+                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em]">Generated by Eric Agent @ OpenClaw | Strategic Social Intelligence MVP</p>
             </footer>
         </div>
+
+        <script>
+            const ctx = document.getElementById('sentimentChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Positive', 'Negative', 'Neutral'],
+                    datasets: [{
+                        data: [7, 0, 3],
+                        backgroundColor: ['#00ffaa', '#ff0055', '#3b82f6'],
+                        borderColor: '#16161a',
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#94a3b8',
+                                usePointStyle: true,
+                                padding: 20,
+                                font: { size: 11, family: 'monospace' }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        </script>
     </body>
     </html>
     
