@@ -27,6 +27,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/*.json dashboard.html
+          git add data/*.json index.html
           git commit -m "Auto-update: Brand Dashboard [skip ci]" || echo "No changes to commit"
           git push

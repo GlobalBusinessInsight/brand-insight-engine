@@ -78,7 +78,7 @@ def generate_html_dashboard():
     </html>
     """
     
-    output_path = "social-intelligence-mvp/dashboard.html"
+    output_path = "social-intelligence-mvp/index.html"
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
     return output_path
