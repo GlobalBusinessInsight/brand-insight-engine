@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "text": "The new MacBook Pro is amazing! #Apple",
+    "source": "Twitter",
+    "user": "tech_guy"
+  },
+  {
+    "id": 2,
+    "text": "Meltwater acquisition of Linkfluence was a smart move.",
+    "source": "News",
+    "user": "biz_reporter"
+  }
+]
